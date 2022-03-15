@@ -1,4 +1,4 @@
-import { stock } from "../../data/Stock"
+import { stock } from "../../data/Stoc"
 
 export const PedirDatos = () => {
     return new Promise((resolve, reject) => {         
