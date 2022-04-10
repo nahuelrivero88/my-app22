@@ -1,34 +1,30 @@
-import React from "react";
-import {Button} from "react-bootstrap";
-import "./ItemCount.css"
+import React from 'react'
 
-export const ItemCount = ({stock, counter, setCounter, onAdd}) => {
+export const ItemCount = ( {max, setCantidad, cantidad, onAdd} ) => {
+
     
-    const sumar = () => {
-        if (stock > counter){
-            setCounter(counter+1);
-        }else {
-            alert("Monto máximo es 5");
-        }
+
+    const handleRestar = () => {
+        cantidad > 0 && setCantidad(cantidad - 1)
     }
-    const restar = () => {
-        if(counter > 1){
-        setCounter(counter-1);
-        }else {
-            alert("Monto mínimo es 1");
-        }
+
+    const handleSumar = () => {
+        cantidad < max && setCantidad(cantidad + 1)
     }
 
     return (
-        <div>
-            <h2 className="text-center"> {counter} </h2>
-            <div className="SumRest">
-            <Button className="btn btn-restar" variant="danger" onClick={restar}>-</Button>
-            <Button className="btn btn-sumar" variant="success" onClick={sumar}>+</Button>
-            </div>
-            <button className="btn btn-dark" onClick={onAdd}>Agregar al carrito </button>
-            
-
+        <div className="my-3">
+            <button className="btn btn-outline-primary" onClick={handleRestar}>
+                -
+            </button>
+            <span className="mx-2">{cantidad}</span>
+            <button className="btn btn-primary" onClick={handleSumar}>
+                +
+            </button>
+            <br/>
+            <button className="btn btn-success my-2" onClick={onAdd}>
+                Agregar al carrito
+            </button>
         </div>
     )
 }

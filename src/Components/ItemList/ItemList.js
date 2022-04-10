@@ -8,7 +8,7 @@ export const ItemList = ({items}) => {
 
     return (
         <Container>
-            <h1 className="tituloInicial"> Distribuidora Riverinhio </h1>
+            <h1 className="tituloInicial"> Rivero Store </h1>
             <Row>
                 {items.map((prod) => <Item key={prod.id} {...prod}/>)}
             </Row>

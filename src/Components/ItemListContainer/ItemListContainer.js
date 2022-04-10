@@ -1,36 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { pedirDatos } from "./pedirDatos";
-import { ItemList } from "../ItemList/ItemList";
-import "./ItemListContainer.css";
+import { PedirDatos } from '../ItemDetailContainer/pedirDatos'
+import { ItemList } from '../ItemList/ItemList'
 
 export const ItemListContainer = () => {
-  const [carga, setCarga] = useState(false);
-  const [productos, setProductos] = useState([]);
-  const { prodId } = useParams();
 
-  useEffect(() => {
+    const [loading, setLoading] = useState(false)
+    const [productos, setProductos] = useState([])
 
-    setCarga(true);
-    pedirDatos()
-      .then((funciona) => {
-         if (!prodId) {
-                    setProductos(funciona)
+    const { catId } = useParams()
+
+    useEffect(() => {
+        
+        setLoading(true)
+        PedirDatos()
+            .then( (resp) => {
+
+                if (!catId) {
+                    setProductos(resp)
                 } else {
-                    setProductos( funciona.filter( prod => prod.categoria === prodId) )
+                    setProductos( resp.filter( prod => prod.category === catId) )
                 }
-      })
-      .catch((mal) => {
-        alert(mal);
-      })
-      .finally(() => {
-        setCarga(false);
-      });
-  }, [prodId]);
+            })
+            .catch( (error) => {
+                console.log(error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
 
-  return (
-    <>
-      {carga ? <h3>Cargando productos...</h3> : <ItemList items={productos} />}
-    </>
-  );
-};
+    }, [catId])
+
+    return (
+        <>
+            {
+                loading 
+                    ? <h2>Cargando...</h2> 
+                    : <ItemList items={productos}/>
+            }
+        </>
+    )
+}
