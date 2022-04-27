@@ -28,10 +28,5 @@ function App() {
 export default App;
 
 
-/* <Routes>
-    <Route path="/" element={ <ItemListContainer /> }/>
-    <Route path="/productos/:catId" element={ <ItemListContainer /> }/>
-    <Route path="/detail/:itemId" element={ <ItemDetailContainer />} />
-    <Route path="/cart" element={ <CartView /> } />
-    <Route path="*" element={ <Navigate to="/" /> } />
-  </Routes> */
+
+

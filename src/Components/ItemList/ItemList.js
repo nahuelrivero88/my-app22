@@ -1,15 +1,15 @@
 import React from 'react'
 import { Container, Row } from 'react-bootstrap'
 import { Item } from '../Item/Item'
-import './ItemList.css'
-
 
 export const ItemList = ({items}) => {
 
     return (
-        <Container>
-            <h1 className="tituloInicial"> Rivero Store </h1>
+        <Container className="my-5">
+            <h2>Productos</h2>
+            <hr/>
             <Row>
+                {/* {items.map((prod) => <Item prod={prod}/>)} */}
                 {items.map((prod) => <Item key={prod.id} {...prod}/>)}
             </Row>
         </Container>

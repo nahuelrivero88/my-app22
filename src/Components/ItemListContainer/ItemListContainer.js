@@ -1,42 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router'
-import { PedirDatos } from '../ItemDetailContainer/pedirDatos'
+import { useCollection } from '../../hooks/useCollection'
 import { ItemList } from '../ItemList/ItemList'
+import { Loader } from '../Loader/Loader'
+
 
 export const ItemListContainer = () => {
 
-    const [loading, setLoading] = useState(false)
-    const [productos, setProductos] = useState([])
-
     const { catId } = useParams()
-
-    useEffect(() => {
-        
-        setLoading(true)
-        PedirDatos()
-            .then( (resp) => {
-
-                if (!catId) {
-                    setProductos(resp)
-                } else {
-                    setProductos( resp.filter( prod => prod.category === catId) )
-                }
-            })
-            .catch( (error) => {
-                console.log(error)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
-
-    }, [catId])
+    const { loading, data } = useCollection('productos', catId)
 
     return (
         <>
             {
                 loading 
-                    ? <h2>Cargando...</h2> 
-                    : <ItemList items={productos}/>
+                    ? <Loader /> 
+                    : <ItemList items={data}/>
             }
         </>
     )
